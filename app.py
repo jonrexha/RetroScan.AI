@@ -22,6 +22,13 @@ class AgentConfig:
 
 def load_environment() -> Path:
     project_root = Path(__file__).parent
+    
+    # 1. If we are on Render, do NOT load sample.env. Trust the Render dashboard!
+    if os.environ.get("RENDER"):
+        print("Running on Render. Trusting dashboard environment variables.")
+        return project_root
+        
+    # 2. Local development fallback flow
     env_file = find_dotenv(".env")
     if env_file:
         load_dotenv(env_file)
@@ -37,7 +44,6 @@ def load_environment() -> Path:
     raise FileNotFoundError(
         "No .env file found. Create a .env file in the project root or add sample.env."
     )
-
 
 def get_config() -> AgentConfig:
     load_environment()
