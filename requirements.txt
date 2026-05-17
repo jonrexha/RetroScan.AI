@@ -9,3 +9,4 @@ pydantic
 duckduckgo-search
 ddgs
 openai
+gunicorn
