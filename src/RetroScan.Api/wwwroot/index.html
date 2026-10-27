@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RetroScan.AI</title>
+  <meta name="description" content="A research terminal that answers questions from cited Wikipedia sources.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23031007'/%3E%3Cpath d='M3 4l4 4-4 4' stroke='%2366ff8a' stroke-width='2' fill='none'/%3E%3Crect x='8' y='11' width='5' height='2' fill='%2366ff8a'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="crt">
+    <header class="bar">
+      <span class="logo">RETROSCAN<span class="logo-dot">.</span>AI</span>
+      <span class="bar-info">RESEARCH TERMINAL v2.0</span>
+    </header>
+
+    <div class="layout">
+      <aside class="sessions" aria-labelledby="sessions-title">
+        <h2 id="sessions-title" class="panel-title">SESSIONS</h2>
+        <button id="new-session" class="new-session" type="button">[+] NEW SESSION</button>
+        <ol id="session-list" class="session-list"></ol>
+      </aside>
+
+      <main class="terminal">
+        <div id="output" class="output" role="log" aria-live="polite"></div>
+        <form id="prompt" class="prompt" autocomplete="off">
+          <label for="input" class="caret" aria-label="Question">&gt;</label>
+          <input id="input" name="text" maxlength="1000" spellcheck="false"
+                 placeholder="Ask a research question, or type /help">
+        </form>
+      </main>
+    </div>
+
+    <footer class="bar">
+      <span>ANSWERS CITE WIKIPEDIA &middot; MODEL BY GROQ</span>
+      <span class="bar-links">
+        <a href="/swagger">API</a>
+        <a href="https://github.com/jonrexha/RetroScan.AI">SOURCE</a>
+      </span>
+    </footer>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

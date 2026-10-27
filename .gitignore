@@ -1,18 +1,9 @@
-# Python cache
-__pycache__/
-*.py[cod]
-*.pyo
-*.pyd
+bin/
+obj/
+TestResults/
+*.user
+.vs/
+.idea/
+.vscode/
 
-# Virtual environments
-venv/
-.venv/
-env/
-
-# Environment files
 .env
-
-# Distribution / packaging
-build/
-dist/
-*.egg-info/

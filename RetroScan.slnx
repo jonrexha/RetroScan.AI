@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/RetroScan.Api/RetroScan.Api.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/RetroScan.Api.Tests/RetroScan.Api.Tests.csproj" />
+  </Folder>
+</Solution>
