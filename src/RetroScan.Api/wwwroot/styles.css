@@ -1,4 +1,5 @@
 :root {
+  color-scheme: dark;
   --bg: #010603;
   --screen: #031007;
   --fg: #8dffa8;
@@ -13,6 +14,7 @@
 
 * {
   box-sizing: border-box;
+  scrollbar-color: var(--dim) transparent;
 }
 
 html,

@@ -56,7 +56,7 @@ function line(text, className = '') {
   return element;
 }
 
-const nextFrame = () => new Promise((resolve) => requestAnimationFrame(resolve));
+const TYPE_SPEED = 360;
 
 function safeUrl(url) {
   return /^https:\/\//.test(url) ? url : '#';
@@ -79,28 +79,38 @@ function citationSegments(answer, sources) {
   });
 }
 
+// Paced by elapsed time rather than animation frames, so a throttled background tab catches up instead of stalling.
 async function typeOut(container, segments, animate) {
-  for (const segment of segments) {
-    if (segment.source) {
-      const cite = sourceLink(segment.source, segment.text);
-      cite.className = 'cite';
-      cite.title = segment.source.title;
-      container.append(cite);
-      continue;
+  const parts = segments.map((segment) => {
+    if (!segment.source) {
+      return { node: document.createTextNode(''), text: segment.text, length: segment.text.length };
     }
-    const text = document.createTextNode('');
-    container.append(text);
-    if (!animate) {
-      text.data = segment.text;
-      continue;
+    const cite = sourceLink(segment.source, segment.text);
+    cite.className = 'cite';
+    cite.title = segment.source.title;
+    return { node: cite, length: segment.text.length };
+  });
+  const total = parts.reduce((sum, part) => sum + part.length, 0);
+  const started = performance.now();
+  let shown;
+  do {
+    shown = animate ? Math.min(total, Math.ceil(((performance.now() - started) / 1000) * TYPE_SPEED)) : total;
+    let offset = 0;
+    for (const part of parts) {
+      const visible = Math.max(0, Math.min(part.length, shown - offset));
+      if (visible > 0 && !part.node.isConnected) {
+        container.append(part.node);
+      }
+      if (part.text !== undefined) {
+        part.node.data = part.text.slice(0, visible);
+      }
+      offset += part.length;
     }
-    for (let shown = 0; shown < segment.text.length; shown += 6) {
-      text.data = segment.text.slice(0, shown + 6);
-      scrollDown();
-      await nextFrame();
+    scrollDown();
+    if (shown < total) {
+      await new Promise((resolve) => setTimeout(resolve, 16));
     }
-  }
-  scrollDown();
+  } while (shown < total);
 }
 
 async function renderAnswer(question, animate) {
