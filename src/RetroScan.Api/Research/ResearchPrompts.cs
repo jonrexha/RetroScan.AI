@@ -79,6 +79,12 @@ public static partial class ResearchPrompts
         return query.Length <= Question.SearchQueryMaxLength ? query : query[..Question.SearchQueryMaxLength];
     }
 
+    // gpt-oss cites in its own style, 【1】 or 【1†L4-L9】, whatever the prompt asks for.
+    public static string NormalizeCitations(string answer) => ModelCitation().Replace(answer, "[$1]");
+
     [GeneratedRegex(@"\s*\[\d+\]")]
     private static partial Regex Citation();
+
+    [GeneratedRegex(@"【(\d+)[^】]*】")]
+    private static partial Regex ModelCitation();
 }

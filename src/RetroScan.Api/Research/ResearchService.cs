@@ -39,7 +39,8 @@ public sealed class ResearchService(
         var sources = await sourceSearch.SearchAsync(searchQuery, SourceLimit, cancellationToken);
         var answer = sources.Count == 0
             ? $"No Wikipedia articles matched \"{searchQuery}\". Try asking in different words."
-            : await languageModel.CompleteAsync(ResearchPrompts.ForAnswer(history, text, sources), cancellationToken);
+            : ResearchPrompts.NormalizeCitations(
+                await languageModel.CompleteAsync(ResearchPrompts.ForAnswer(history, text, sources), cancellationToken));
 
         var question = new Question
         {

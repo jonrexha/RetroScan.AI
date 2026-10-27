@@ -63,6 +63,15 @@ public sealed class ResearchPromptsTests
         Assert.Equal(expected, ResearchPrompts.CleanSearchQuery(completion, "How long do sharks live?"));
     }
 
+    [Theory]
+    [InlineData("within the class Chondrichthyes【1】.", "within the class Chondrichthyes[1].")]
+    [InlineData("about 272 to 510 years【2†L3-L8】【3】", "about 272 to 510 years[2][3]")]
+    [InlineData("already plain [1].", "already plain [1].")]
+    public void Model_specific_citations_become_square_brackets(string answer, string expected)
+    {
+        Assert.Equal(expected, ResearchPrompts.NormalizeCitations(answer));
+    }
+
     [Fact]
     public void Clean_search_query_fits_the_column()
     {
