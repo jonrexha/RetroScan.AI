@@ -1,6 +1,8 @@
 # RetroScan.AI
 
-A research terminal that answers questions from Wikipedia, cites every claim, and keeps your research sessions in MySQL. Built with ASP.NET Core Web API, EF Core and xUnit.
+A research terminal that answers questions from Wikipedia articles, cites them by number, and keeps your research sessions in MySQL. Built with ASP.NET Core Web API, EF Core and xUnit.
+
+![RetroScan.AI answering a follow-up question with cited Wikipedia sources](docs/screenshot.png)
 
 ## What it does
 
