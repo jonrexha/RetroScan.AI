@@ -2,6 +2,8 @@
 
 A research terminal that answers questions from Wikipedia articles, cites them by number, and keeps your research sessions in MySQL. Built with ASP.NET Core Web API, EF Core and xUnit.
 
+**Live demo:** [retroscan-ai-1.onrender.com](https://retroscan-ai-1.onrender.com) (free hosting, the first load can take about 30 seconds)
+
 ![RetroScan.AI answering a follow-up question with cited Wikipedia sources](docs/screenshot.png)
 
 ## What it does
